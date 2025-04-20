@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->string('penjualan_kode', 20);
             $table->dateTime('penjualan_tanggal');
-
             // Mendefinisikan Foreign Key pada kolom user_id mengacu pada kolom user_id di tabel m_user
             $table->foreign('user_id')->references('user_id')->on('m_user');
+            $table->timestamps();
         });
     }
 

@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="{{ asset('Adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('Adminlte/dist/css/adminlte.min.css')}}">
-
     @stack('css')
 </head>
 

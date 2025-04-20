@@ -137,14 +137,14 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <img src="/../PWL_POS/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
+                <img src="/../UTS_PWL/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
                     class="img-size-32 img-circle mr-2">
                 <span class="d-none d-sm-inline-block">{{ Auth::user()->username }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-item">
                     <div class="media">
-                        <img src="/../PWL_POS/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
+                        <img src="/../UTS_PWL/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
                             class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
@@ -161,8 +161,7 @@
                 <a href="#" class="dropdown-item">
                     <i class="fas fa-cog mr-2"></i> Settings
                 </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
+                <a href="{{ url('/logout') }}" class="nav-link{{($activeMenu == 'logout') ? 'active' : ''}}" class="dropdown-item">
                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                 </a>
                 <div class="dropdown-divider"></div>
@@ -172,16 +171,6 @@
             </div>
         </li>
         <!-- Fullscreen -->
-        <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                <i class="fas fa-expand-arrows-alt"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                <i class="fas fa-th-large"></i>
-            </a>
-        </li>
     </ul>
 </nav>
 <div class="modal fade" id="changeImageModal" tabindex="-1" role="dialog" aria-labelledby="changeImageModalLabel"

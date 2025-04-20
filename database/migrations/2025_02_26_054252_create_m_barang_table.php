@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('barang_nama', 100);
             $table->integer('harga_beli');
             $table->integer('harga_jual');
-
             $table->unsignedBigInteger('kategori_id')->index(); // indexing untuk ForeignKey
             // Mendefinisikan Foreign Key pada kolom kategori_id mengacu pada kolom kategori_id di tabel m_kategori
             $table->foreign('kategori_id')->references('kategori_id')->on('m_kategori');
+            $table->timestamps();
         });
     }
 

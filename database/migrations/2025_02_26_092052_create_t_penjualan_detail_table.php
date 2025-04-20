@@ -17,11 +17,11 @@ return new class extends Migration
             $table->unsignedBigInteger('barang_id')->index();
             $table->integer('harga');
             $table->integer('jumlah');
-
             // Mendefinisikan Foreign Key pada kolom penjualan_id mengacu pada kolom penjualan_id di tabel t_penjualan
             $table->foreign('penjualan_id')->references('penjualan_id')->on('t_penjualan');
             // Mendefinisikan Foreign Key pada kolom barang_id mengacu pada kolom barang_id di tabel m_barang
             $table->foreign('barang_id')->references('barang_id')->on('m_barang');
+            $table->timestamps();
         });
     }
 

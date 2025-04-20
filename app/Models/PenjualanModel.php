@@ -14,7 +14,7 @@ class penjualanModel extends Model
     protected $primaryKey = 'penjualan_id';
 
     protected $fillable = [
-        'kategori_id',
+        'barang_id',
         'penjualan_nama',
         'penjualan_kode',
         'harga_beli',
