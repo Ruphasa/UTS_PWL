@@ -91,7 +91,7 @@ class StokController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($stok) {  // menambahkan kolom aksi 
                 $btn = '<button onclick="modalAction(\'' . url('/stok/' . $stok->stok_id .
-                    '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                    '/') . '\')" class="btn btn-info btn-sm">Detail</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/stok/' . $stok->stok_id .
                     '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/stok/' . $stok->stok_id .
@@ -103,7 +103,7 @@ class StokController extends Controller
     }
 
     // Menampilkan detail stok
-    public function show(string $id)
+    public function show_ajax(string $id)
     {
         $stok = stokModel::find($id);
         $breadcrumb = (object) [
@@ -114,8 +114,11 @@ class StokController extends Controller
             (object) [
                 'title' => 'Detail stok'
             ];
+        $supplier = SupplierModel::all();
+        $barang = BarangModel::all();
+        $user = UserModel::all();
         $activeMenu = 'stok'; // set menu yang sedang aktif
-        return view('stok.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stok' => $stok, 'activeMenu' => $activeMenu]);
+        return view('stok.show_ajax', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stok' => $stok, 'activeMenu' => $activeMenu, 'supplier' => $supplier, 'barang'=>$barang, 'user'=>$user]);
     }
 
     public function edit_ajax(string $id)
@@ -132,10 +135,8 @@ class StokController extends Controller
         // cek apakah request dari ajax 
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'user_id' => 'required|integer',
                 'barang_id' => 'required|integer',
                 'supplier_id' => 'required|integer',
-                'stok_tanggal' => 'required|date',
                 'stok_jumlah' => 'required|integer'
             ];
 

@@ -28,34 +28,35 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Level Pengguna</label>
-                        <select name="level_id" id="level_id" class="form-control" required>
-                            <option value="">- Pilih Level -</option>
-                            @foreach($level as $l)
-                                <option {{ ($l->level_id == $stok->level_id) ? 'selected' : '' }} value="{{ $l->level_id }}">
-                                    {{ $l->level_nama }}
+                        <label>Nama Supplier</label>
+                        <select name="supplier_id" id="supplier_id" class="form-control" required>
+                            <option value="">- Pilih Supplier -</option>
+                            @foreach($supplier as $s)
+                                <option {{ ($s->supplier_id == $stok->supplier_id) ? 'selected' : '' }}
+                                    value="{{ $s->supplier_id }}">
+                                    {{ $s->supplier_nama }}
                                 </option>
                             @endforeach
                         </select>
-                        <small id="error-level_id" class="error-text form-text text-danger"></small>
+                        <small id="error-supplier_id" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Stokname</label>
-                        <input value="{{ $stok->stokname }}" type="text" name="stokname" id="stokname" class="form-control"
+                        <label>Nama Barang</label>
+                        <select name="barang_id" id="barang_id" class="form-control" required>
+                            <option value="">- Pilih Barang -</option>
+                            @foreach($barang as $b)
+                                <option {{ ($b->barang_id == $stok->barang_id) ? 'selected' : '' }} value="{{ $b->barang_id }}">
+                                    {{ $b->barang_nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <small id="error-barang_id" class="error-text form-text text-danger"></small>
+                    </div>
+                    <div class="form-group">
+                        <label>Jumlah</label>
+                        <input value="{{ $stok->jumlah }}" type="number" name="stok_jumlah" id="stok_jumlah" class="form-control"
                             required>
-                        <small id="error-stokname" class="error-text form-text text-danger"></small>
-                    </div>
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input value="{{ $stok->nama }}" type="text" name="nama" id="nama" class="form-control" required>
-                        <small id="error-nama" class="error-text form-text text-danger"></small>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input value="" type="password" name="password" id="password" class="form-control">
-                        <small class="form-text text-muted">Abaikan jika tidak ingin ubah
-                            password</small>
-                        <small id="error-password" class="error-text form-text text-danger"></small>
+                        <small id="error-stok_jumlah" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -69,10 +70,9 @@
         $(document).ready(function () {
             $("#form-edit").validate({
                 rules: {
-                    level_id: { required: true, number: true },
-                    stokname: { required: true, minlength: 3, maxlength: 20 },
-                    nama: { required: true, minlength: 3, maxlength: 100 },
-                    password: { minlength: 6, maxlength: 20 }
+                    supplier_id: { required: true },
+                    barang_id: { required: true },
+                    stok_jumlah: { required: true, number: true, min: 1 }
                 },
                 submitHandler: function (form) {
                     $.ajax({

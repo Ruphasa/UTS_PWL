@@ -33,16 +33,28 @@
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Level Pengguna :</th>
-                            <td class="col-9">{{ $stok->level->level_nama }}</td>
+                            <th class="text-right col-3">ID :</th>
+                            <td class="col-9">{{ $stok->stok_id }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Stokname :</th>
-                            <td class="col-9">{{ $stok->stokname }}</td>
+                            <th class="text-right col-3">Nama Supplier :</th>
+                            <td class="col-9">{{ $stok->supplier->supplier_nama }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama :</th>
-                            <td class="col-9">{{ $stok-> nama }}</td>
+                            <th class="text-right col-3">Nama Barang :</th>
+                            <td class="col-9">{{ $stok->barang->barang_nama }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Yang Bertanggung Jawab :</th>
+                            <td class="col-9">{{ $stok->user->username }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Tanggal :</th>
+                            <td class="col-9">{{ $stok->stok_tanggal }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Jumlah :</th>
+                            <td class="col-9">{{ $stok->stok_jumlah }}</td>
                         </tr>
                     </table>
                 </div>
