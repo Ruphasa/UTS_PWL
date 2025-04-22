@@ -45,6 +45,34 @@
                             <td class="col-9">{{ $penjualan->penjualan_tanggal }}</td>
                         </tr>
                     </table>
+                    <table class="table table-bordered table-striped table-hover table-sm" id="table_penjualan_detail">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama Barang</th>
+                                <th>Harga</th>
+                                <th>Jumlah</th>
+                                <th>Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($PenjualanDetail as $item)
+                                <tr>
+                                    <td>{{ $item->detail_id }}</td>
+                                    <td>{{ $item->barang->barang_nama }}</td>
+                                    <td>{{ $item->barang->harga_jual }}</td>
+                                    <td>{{ $item->jumlah }}</td>
+                                    <td>{{ number_format($item->harga, 0, ',', '.') }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" class="text-left">Total:</th>
+                                <th>{{ number_format($PenjualanDetail->sum('harga'), 0, ',', '.') }}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>

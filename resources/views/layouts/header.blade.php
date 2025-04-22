@@ -161,7 +161,7 @@
                 <a href="#" class="dropdown-item">
                     <i class="fas fa-cog mr-2"></i> Settings
                 </a>
-                <a href="{{ url('/logout') }}" class="nav-link{{($activeMenu == 'logout') ? 'active' : ''}}" class="dropdown-item">
+                <a class="dropdown-item" href="{{ url('/logout') }}" class="nav-link{{($activeMenu == 'logout') ? 'active' : ''}}" class="dropdown-item">
                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                 </a>
                 <div class="dropdown-divider"></div>

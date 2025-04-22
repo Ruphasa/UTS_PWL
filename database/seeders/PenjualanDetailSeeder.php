@@ -13,13 +13,21 @@ class PenjualanDetailSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=1; $i < 4; $i++) { 
+        // Mengambil semua data barang
+        
+        for ($i=1; $i < 5; $i++) { 
+            // Mengambil data barang sesuai dengan id
+            $idx = rand(1, 15);
+            $barang = DB::table('m_barang')->where('barang_id', $idx)->first();
+            $harga = $barang->harga_jual;
+            $jumlah = rand(1, 10);
+            $hargaSubTotal = $harga * $jumlah;
             $data = [
                 'detail_id' => $i,
-                'penjualan_id' => $i,
-                'barang_id' => rand(1, 15),
-                'harga' => rand(10000, 100000),
-                'jumlah' => rand(1, 100),
+                'penjualan_id' => rand(1,2),
+                'barang_id' => $idx,
+                'jumlah' => $jumlah,
+                'harga' => $hargaSubTotal,
             ];
             DB::table('t_penjualan_detail')->insert($data);
         }

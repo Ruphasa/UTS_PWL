@@ -36,8 +36,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Nama Barang</th>
-                            <th>Jumlah</th>
                             <th>Harga</th>
+                            <th>Jumlah</th>
+                            <th>Sub Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,6 +46,7 @@
                             <tr>
                                 <td>{{ $item->detail_id }}</td>
                                 <td>{{ $item->barang->barang_nama }}</td>
+                                <td>{{ $item->barang->harga_jual }}</td>
                                 <td>{{ $item->jumlah }}</td>
                                 <td>{{ number_format($item->harga, 0, ',', '.') }}</td>
                             </tr>
@@ -52,7 +54,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="4" class="text-right">Total:</th>
+                            <th colspan="4" class="text-left">Total:</th>
                             <th>{{ number_format($PenjualanDetail->sum('harga'), 0, ',', '.') }}</th>
                         </tr>
                     </tfoot>

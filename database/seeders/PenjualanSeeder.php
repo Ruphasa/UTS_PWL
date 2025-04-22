@@ -14,10 +14,10 @@ class PenjualanSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=1; $i < 11 ; $i++) { 
+        for ($i=1; $i < 3 ; $i++) { 
             $data = [
                 'penjualan_id' => $i,
-                'user_id' => rand(1, 3),
+                'user_id' => rand(4, 7),
                 'penjualan_kode' => 'Penjualan '.$i,
                 'penjualan_tanggal' => Carbon::now(),
             ];

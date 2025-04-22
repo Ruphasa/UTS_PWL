@@ -19,7 +19,7 @@ class StokSeeder extends Seeder
             $data = [
                 'barang_id' => $i,
                 'supplier_id' => rand(1, 3),
-                'user_id' => rand(1, 3),
+                'user_id' => rand(2, 3),
                 'stok_tanggal' => Carbon::now(),
                 'stok_jumlah' => rand(1, 100),
             ];

@@ -14,22 +14,113 @@ class BarangSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['kategori_id' => 1, 'barang_kode' => 'B001', 'barang_nama' => 'Barang 1', 'harga_beli' => 10000, 'harga_jual' => 15000],
-            ['kategori_id' => 1, 'barang_kode' => 'B002', 'barang_nama' => 'Barang 2', 'harga_beli' => 20000, 'harga_jual' => 25000],
-            ['kategori_id' => 1, 'barang_kode' => 'B003', 'barang_nama' => 'Barang 3', 'harga_beli' => 30000, 'harga_jual' => 35000],
-            ['kategori_id' => 1, 'barang_kode' => 'B004', 'barang_nama' => 'Barang 4', 'harga_beli' => 40000, 'harga_jual' => 45000],
-            ['kategori_id' => 1, 'barang_kode' => 'B005', 'barang_nama' => 'Barang 5', 'harga_beli' => 50000, 'harga_jual' => 55000],
-            ['kategori_id' => 2, 'barang_kode' => 'B006', 'barang_nama' => 'Barang 6', 'harga_beli' => 60000, 'harga_jual' => 65000],
-            ['kategori_id' => 2, 'barang_kode' => 'B007', 'barang_nama' => 'Barang 7', 'harga_beli' => 70000, 'harga_jual' => 75000],
-            ['kategori_id' => 2, 'barang_kode' => 'B008', 'barang_nama' => 'Barang 8', 'harga_beli' => 80000, 'harga_jual' => 85000],
-            ['kategori_id' => 2, 'barang_kode' => 'B009', 'barang_nama' => 'Barang 9', 'harga_beli' => 90000, 'harga_jual' => 95000],
-            ['kategori_id' => 2, 'barang_kode' => 'B010', 'barang_nama' => 'Barang 10', 'harga_beli' => 100000, 'harga_jual' => 105000],
-            ['kategori_id' => 3, 'barang_kode' => 'B011', 'barang_nama' => 'Barang 11', 'harga_beli' => 110000, 'harga_jual' => 115000],
-            ['kategori_id' => 3, 'barang_kode' => 'B012', 'barang_nama' => 'Barang 12', 'harga_beli' => 120000, 'harga_jual' => 125000],
-            ['kategori_id' => 3, 'barang_kode' => 'B013', 'barang_nama' => 'Barang 13', 'harga_beli' => 130000, 'harga_jual' => 135000],
-            ['kategori_id' => 3, 'barang_kode' => 'B014', 'barang_nama' => 'Barang 14', 'harga_beli' => 140000, 'harga_jual' => 145000],
-            ['kategori_id' => 3, 'barang_kode' => 'B015', 'barang_nama' => 'Barang 15', 'harga_beli' => 150000, 'harga_jual' => 155000]
+            [
+                'kategori_id' => 1,
+                'barang_kode' => 'B001',
+                'barang_nama' => 'Indomie Goreng',
+                'harga_beli' => 2700,
+                'harga_jual' => 3500
+            ],
+            [
+                'kategori_id' => 1,
+                'barang_kode' => 'B002',
+                'barang_nama' => 'Indomie Kuah',
+                'harga_beli' => 2800,
+                'harga_jual' => 3800
+            ],
+            [
+                'kategori_id' => 2,
+                'barang_kode' => 'B003',
+                'barang_nama' => 'Coca-Cola 330ml',
+                'harga_beli' => 4500,
+                'harga_jual' => 5500
+            ],
+            [
+                'kategori_id' => 2,
+                'barang_kode' => 'B004',
+                'barang_nama' => 'Sprite 330ml',
+                'harga_beli' => 4700,
+                'harga_jual' => 5800
+            ],
+            [
+                'kategori_id' => 3,
+                'barang_kode' => 'B005',
+                'barang_nama' => 'Tepung Terigu Segitiga Biru 1kg',
+                'harga_beli' => 12000,
+                'harga_jual' => 15000
+            ],
+            [
+                'kategori_id' => 3,
+                'barang_kode' => 'B006',
+                'barang_nama' => 'Margarin Selera 250g',
+                'harga_beli' => 10000,
+                'harga_jual' => 13000
+            ],
+            [
+                'kategori_id' => 4,
+                'barang_kode' => 'B007',
+                'barang_nama' => 'Pepsodent Salt Toothpaste 150g',
+                'harga_beli' => 12000,
+                'harga_jual' => 15000
+            ],
+            [
+                'kategori_id' => 5,
+                'barang_kode' => 'B008',
+                'barang_nama' => 'Dettol 2in1 Original 100ml',
+                'harga_beli' => 15000,
+                'harga_jual' => 18000
+            ],
+            [
+                'kategori_id' => 6,
+                'barang_kode' => 'B009',
+                'barang_nama' => 'Pensil 2B',
+                'harga_beli' => 1000,
+                'harga_jual' => 1500
+            ],
+            [
+                'kategori_id' => 6,
+                'barang_kode' => 'B010',
+                'barang_nama' => 'Pulpen Hitam',
+                'harga_beli' => 2000,
+                'harga_jual' => 3000
+            ],
+            [
+                'kategori_id' => 7,
+                'barang_kode' => 'B011',
+                'barang_nama' => 'Sarden Kaleng ABC 180g',
+                'harga_beli' => 6000,
+                'harga_jual' => 8000
+            ],
+            [
+                'kategori_id' => 8,
+                'barang_kode' => 'B012',
+                'barang_nama' => 'Kecap Manis Bango 100ml',
+                'harga_beli' => 5000,
+                'harga_jual' => 7000
+            ],
+            [
+                'kategori_id' => 9,
+                'barang_kode' => 'B013',
+                'barang_nama' => 'Sari Roti 150g',
+                'harga_beli' => 7000,
+                'harga_jual' => 9000
+            ],
+            [
+                'kategori_id' => 9,
+                'barang_kode' => 'B014',
+                'barang_nama' => 'Chips',
+                'harga_beli' => 7000,
+                'harga_jual' => 9000
+            ],
+            [
+                'kategori_id' => 10,
+                'barang_kode' => 'B015',
+                'barang_nama' => 'Perekat Invisible Tape',
+                'harga_beli' => 8000,
+                'harga_jual' => 12000
+            ]
         ];
+
         DB::table('m_barang')->insert($data);
     }
 }

@@ -14,11 +14,16 @@ class KategoriSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['kategori_kode' => 'K001', 'kategori_nama' => 'Kategori 1'],
-            ['kategori_kode' => 'K002', 'kategori_nama' => 'Kategori 2'],
-            ['kategori_kode' => 'K003', 'kategori_nama' => 'Kategori 3'],
-            ['kategori_kode' => 'K004', 'kategori_nama' => 'Kategori 4'],
-            ['kategori_kode' => 'K005', 'kategori_nama' => 'Kategori 5'],
+            ['kategori_kode' => 'MINT', 'kategori_nama' => 'Mie Instan'],
+            ['kategori_kode' => 'MNMN', 'kategori_nama' => 'Minuman'],
+            ['kategori_kode' => 'BHKE', 'kategori_nama' => 'Bahan Kue'],
+            ['kategori_kode' => 'PRPR', 'kategori_nama' => 'Produk Perawatan'],
+            ['kategori_kode' => 'PRPB', 'kategori_nama' => 'Produk Pembersih'],
+            ['kategori_kode' => 'ALTT', 'kategori_nama' => 'Alat Tulis'],
+            ['kategori_kode' => 'MKNKLG', 'kategori_nama' => 'Makanan Kaleng'],
+            ['kategori_kode' => 'BMBM', 'kategori_nama' => 'Bumbu Masak'],
+            ['kategori_kode' => 'SNCK', 'kategori_nama' => 'Snack'],
+            ['kategori_kode' => 'OHTR', 'kategori_nama' => 'Produk Lainnya']
         ];
         DB::table('m_kategori')->insert($data);
     }

@@ -28,6 +28,36 @@
                     <input value="" type="date" name="penjualan_tanggal" id="penjualan_tanggal" class="form-control" required>
                     <small id="error-penjualan_tanggal" class="error-text form-text text-danger"></small>
                 </div>
+
+                <!-- Penjualan Detail -->
+                <table class="table" id="penjualan-detail">
+                    <thead>
+                        <tr>
+                            <th>Stok</th>
+                            <th>Jumlah</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select name="stok_id[]" class="form-control" required>
+                                    <option value="">- Pilih Stok -</option>
+                                    @foreach($stok as $s)
+                                        <option value="{{ $s->stok_id }}">{{ $s->barang->barang_nama }} (Stok: {{ $s->stok_jumlah }})</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" name="jumlah[]" class="form-control" required min="1">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm remove-row">Hapus</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" id="add-row" class="btn btn-success btn-sm">Tambah Detail</button>
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
@@ -38,16 +68,52 @@
 </form>
 <script>
     $(document).ready(function () {
+        // Fungsi untuk menambahkan baris baru
+        $("#add-row").click(function () {
+            const newRow = `
+                <tr>
+                    <td>
+                        <select name="stok_id[]" class="form-control" required>
+                            <option value="">- Pilih Stok -</option>
+                            @foreach($stok as $s)
+                                <option value="{{ $s->stok_id }}">{{ $s->barang->barang_nama }} (Stok: {{ $s->stok_jumlah }})</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" name="jumlah[]" class="form-control" required min="1">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-row">Hapus</button>
+                    </td>
+                </tr>
+            `;
+            $("#penjualan-detail tbody").append(newRow);
+        });
+
+        // Fungsi untuk menghapus baris
+        $("#penjualan-detail").on("click", ".remove-row", function () {
+            $(this).closest("tr").remove();
+        });
+
+        // Validasi form
         $("#form-tambah").validate({
             rules: {
-                user_id: {
+                "user_id": {
                     required: true
                 },
-                penjualan_kode: {
+                "penjualan_kode": {
                     required: true
                 },
-                penjualan_tanggal: {
+                "penjualan_tanggal": {
                     required: true
+                },
+                "stok_id[]": {
+                    required: true
+                },
+                "jumlah[]": {
+                    required: true,
+                    min: 1
                 }
             },
             submitHandler: function (form) {
