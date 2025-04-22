@@ -91,23 +91,23 @@
             </td>
         </tr>
     </table>
-    <h3 class="text-center">LAPORAN DATA USER</h4>
+    <h3 class="text-center">LAPORAN DATA PENJUALAN</h4>
         <table class="border-all">
             <thead>
                 <tr>
                     <th class="text-center">No</th>
-                    <th>Username</th>
-                    <th>Nama</th>
-                    <th>Level Pengguna</th>
+                    <th>Kode Penjualan</th>
+                    <th>Nama Pembeli</th>
+                    <th>Tanggal Penjualan</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($user as $u)
+                @foreach($penjualan as $p)
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
-                        <td>{{ $u->username }}</td>
-                        <td>{{ $u->nama }}</td>
-                        <td>{{ $u->level_id->level_nama }}</td>
+                        <td>{{ $p->penjualan_kode }}</td>
+                        <td>{{ $p->user_id->username }}</td>
+                        <td>{{ $p->penjualan_tanggal }}</td>
                     </tr>
                 @endforeach
             </tbody>

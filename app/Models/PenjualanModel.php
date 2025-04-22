@@ -10,19 +10,17 @@ class penjualanModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_penjualan';
+    protected $table = 't_penjualan';
     protected $primaryKey = 'penjualan_id';
 
     protected $fillable = [
-        'barang_id',
-        'penjualan_nama',
         'penjualan_kode',
-        'harga_beli',
-        'harga_jual'
+        'user_id',
+        'penjualan_tanggal',
     ];
 
-    public function kategori(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(KategoriModel::class, 'kategori_id', 'kategori_id');
+        return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
     }
 }

@@ -1,4 +1,4 @@
-@empty($user)
+@empty($penjualan)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,28 +11,28 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/user') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/penjualan') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/user/' . $user->user_id . '/update_ajax') }}" method="POST" id="form-edit">
+    <form action="{{ url('/penjualan/' . $penjualan->penjualan_id . '/update_ajax') }}" method="POST" id="form-edit">
         @csrf
         @method('PUT')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Data User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Data Penjualan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Level Pengguna</label>
+                        <label>Pembeli</label>
                         <select name="level_id" id="level_id" class="form-control" required>
                             <option value="">- Pilih Level -</option>
                             @foreach($level as $l)
-                                <option {{ ($l->level_id == $user->level_id) ? 'selected' : '' }} value="{{ $l->level_id }}">
+                                <option {{ ($l->level_id == $penjualan->level_id) ? 'selected' : '' }} value="{{ $l->level_id }}">
                                     {{ $l->level_nama }}
                                 </option>
                             @endforeach
@@ -40,14 +40,14 @@
                         <small id="error-level_id" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Username</label>
-                        <input value="{{ $user->username }}" type="text" name="username" id="username" class="form-control"
+                        <label>Penjualanname</label>
+                        <input value="{{ $penjualan->penjualanname }}" type="text" name="penjualanname" id="penjualanname" class="form-control"
                             required>
-                        <small id="error-username" class="error-text form-text text-danger"></small>
+                        <small id="error-penjualanname" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
                         <label>Nama</label>
-                        <input value="{{ $user->nama }}" type="text" name="nama" id="nama" class="form-control" required>
+                        <input value="{{ $penjualan->nama }}" type="text" name="nama" id="nama" class="form-control" required>
                         <small id="error-nama" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
@@ -70,7 +70,7 @@
             $("#form-edit").validate({
                 rules: {
                     level_id: { required: true, number: true },
-                    username: { required: true, minlength: 3, maxlength: 20 },
+                    penjualanname: { required: true, minlength: 3, maxlength: 20 },
                     nama: { required: true, minlength: 3, maxlength: 100 },
                     password: { minlength: 6, maxlength: 20 }
                 },
@@ -87,7 +87,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataUser.ajax.reload();
+                                dataPenjualan.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function (prefix, val) {

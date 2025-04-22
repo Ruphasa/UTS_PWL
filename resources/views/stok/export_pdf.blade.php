@@ -96,16 +96,16 @@
             <thead>
                 <tr>
                     <th class="text-center">No</th>
-                    <th>Username</th>
+                    <th>Stokname</th>
                     <th>Nama</th>
                     <th>Level Pengguna</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($user as $u)
+                @foreach($stok as $s)
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
-                        <td>{{ $u->username }}</td>
+                        <td>{{ $u->stokname }}</td>
                         <td>{{ $u->nama }}</td>
                         <td>{{ $u->level_id->level_nama }}</td>
                     </tr>

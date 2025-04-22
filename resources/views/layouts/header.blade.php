@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-dark navbar-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -137,14 +137,14 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <img src="/../UTS_PWL/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
+                <img src="/SAKAMOTO/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
                     class="img-size-32 img-circle mr-2">
                 <span class="d-none d-sm-inline-block">{{ Auth::user()->username }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <div class="dropdown-item">
                     <div class="media">
-                        <img src="/../UTS_PWL/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
+                        <img src="/SAKAMOTO/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
                             class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">

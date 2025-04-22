@@ -90,13 +90,6 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
 							<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-								<li class=" scroll active"><a href="#home">home</a></li>
-								<li class="scroll"><a href="#service">service</a></li>
-								<li class="scroll"><a href="#new-goods">new goods</a></li>
-								<li class="scroll"><a href="#featured-goods">featured goods</a></li>
-								<li class="nav-item">
-									<a href="/bayar"><i class="fas fa-shopping-cart"></i></a>
-								</li>
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
 										<img src="/SAKAMOTO/public/Adminlte/dist/img/{{ Auth::user()->username }}.png"
@@ -106,9 +99,9 @@
 									<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 										<div class="dropdown-item">
 											<div class="media">
-												<img src="/SAKAMOTO/public/Adminlte/dist/img/{{ Auth::user()->username }}.png"
-													alt="" class="img-size-50 img-circle mr-3">
-												<div class="media-body">
+												<img src="/SAKAMOTO/public/Adminlte/dist/img/{{ Auth::user()->username }}.png" alt=""
+													class="img-size-50 img-circle mr-3">
+												<div class="media-body">															
 													<h3 class="dropdown-item-title">
 														{{ Auth::user()->username }}
 													</h3>
@@ -196,100 +189,7 @@
 
 	</section><!--/.welcome-hero-->
 	<!--welcome-hero end -->
-
-	<!--service start -->
-	<section id="service" class="service">
-		<div class="container">
-			<div class="service-content">
-				<div class="row">
-					<div class="col-md-4 col-sm-6">
-						<div class="single-service-item">
-							<div class="single-service-icon">
-								<i class="flaticon-car"></i>
-							</div>
-							<h2><a href="#">Lingkungan <span> yang</span> Ramah</a></h2>
-							<p>
-								Kami berkomitmen untuk memberikan pelayanan yang ramah dan profesional kepada setiap
-								pelanggan kami.
-							</p>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6">
-						<div class="single-service-item">
-							<div class="single-service-icon">
-								<i class="flaticon-car-repair"></i>
-							</div>
-							<h2><a href="#">Keamanan Yang Terjamin</a></h2>
-							<p>
-								<br>
-								Kami memiliki sistem keamanan yang terkuat untuk melindungi Anda.
-								<br>
-								<br>
-							</p>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6">
-						<div class="single-service-item">
-							<div class="single-service-icon">
-								<i class="flaticon-car-1"></i>
-							</div>
-							<h2><a href="#">insurence support</a></h2>
-							<p>
-								Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut den fugit sed quia.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div><!--/.container-->
-
-	</section><!--/.service-->
-	<!--service end-->
-
-	<!--new-goods start -->
-	<section id="new-goods" class="new-goods">
-		<div class="container">
-			<div class="section-header">
-				<p>checkout <span>the</span> latest cars</p>
-				<h2>newest cars</h2>
-			</div><!--/.section-header-->
-			<div class="new-goods-content">
-				<div class="owl-carousel owl-theme" id="new-cars-carousel">
-					@foreach ($stok->take(3) as $s)
-						<div class="new-goods-item">
-							<div class="single-new-goods-item">
-								<div class="row">
-									<div class="col-md-7 col-sm-12">
-										<div class="new-goods-img">
-											<img src="{{asset('awo/assets/images/new-goods-model/ncm1.png')}}" alt="img" />
-										</div><!--/.new-goods-img-->
-									</div>
-									<div class="col-md-5 col-sm-12">
-										<div class="new-goods-txt">
-											<h2><a href="#">{{$s->barang->barang_nama}}</a></h2>
-											<span><br>Kategori : {{$s->barang->kategori->kategori_nama}}</span>
-											<p>
-												Stok Tersisa : {{$s->stok_jumlah}}<br>
-											</p>
-											<p class="new-goods-para2">
-												Produk dari {{$s->supplier->supplier_nama}}<br>
-											</p>
-											<button class="welcome-btn new-goods-btn" onclick="window.location.href='#'">
-												view details
-											</button>
-										</div><!--/.new-goods-txt-->
-									</div><!--/.col-->
-								</div><!--/.row-->
-							</div><!--/.single-new-goods-item-->
-						</div><!--/.new-goods-item-->
-					@endforeach
-				</div><!--/#new-goods-carousel-->
-			</div><!--/.new-goods-content-->
-		</div><!--/.container-->
-
-	</section><!--/.new-goods-->
-	<!--new-goods end -->
-
+	
 	<!--featured-goods start -->
 	<section id="featured-goods" class="featured-goods">
 		<div class="container">
@@ -299,24 +199,28 @@
 			</div><!--/.section-header-->
 			<div class="featured-goods-content">
 				<div class="row">
-					@foreach ($stok->take(8) as $s)
+					@foreach ($barang->take(8) as $b)
 						<div class="col-lg-3 col-md-4 col-sm-6">
-							<div class="single-featured-cars">
+							<div class="single-featured-goods">
 								<div class="featured-img-box">
-									<div class="featured-cars-img">
+									<div class="featured-goods-img">
 										<img src="{{asset('awo/assets/images/featured-goods/fc1.png')}}" alt="cars">
 									</div>
 									<div class="featured-model-info">
 										<p>
-											Kategori : {{$s->barang->kategori->kategori_nama}}<br>
+											model: 2017
+											<span class="featured-mi-span"> 3100 mi</span>
+											<span class="featured-hp-span"> 240HP</span>
+											automatic
 										</p>
 									</div>
 								</div>
 								<div class="featured-goods-txt">
-									<h2><a href="#">{{$s->barang->barang_nama}}</a></h2>
-									<h3>Rp. {{$s->barang->harga_jual}}</h3>
+									<h2><a href="#">BMW 6-series gran coupe</a></h2>
+									<h3>$89,395</h3>
 									<p>
-										Stok Tersedia : {{$s->stok_jumlah}}<br>
+										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+										adipisci velit, sed quia non.
 									</p>
 								</div>
 							</div>
@@ -328,30 +232,6 @@
 
 	</section><!--/.featured-goods-->
 	<!--featured-goods end -->
-
-	<!--brand strat -->
-	<section id="brand" class="brand">
-		<div class="container">
-			<div class="brand-area">
-				<div class="owl-carousel owl-theme brand-item">
-					@foreach ($stok->take(6) as $b)
-						<div class="item">
-							<a href="#">
-								<img src="{{asset('awo/assets/images/brand/br' . $s->stok_id . '.png')}}" alt="brand-image" />
-							</a>
-						</div><!--/.item-->
-					@endforeach
-				</div><!--/.owl-carousel-->
-			</div><!--/.clients-area-->
-
-		</div><!--/.container-->
-
-	</section><!--/brand-->
-	<!--brand end -->
-
-	<!--blog start -->
-	<section id="blog" class="blog"></section><!--/.blog-->
-	<!--blog end -->
 
 	<!--contact start-->
 	<footer id="contact" class="contact">

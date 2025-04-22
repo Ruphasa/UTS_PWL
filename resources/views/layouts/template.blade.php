@@ -25,7 +25,7 @@
     @stack('css')
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <!-- Site wrapper -->
     <div class="wrapper">
         <!-- Navbar -->
@@ -36,8 +36,8 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ url('/')}}" class="brand-link">
-                <img src="{{ asset('Adminlte')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="{{ asset('awo')}}/assets/logo/favicon.png" alt=""
+                    class="brand-image img-circle elevation-3">
                 <span class="brand-text font-weight-light">ストレジ</span>
             </a>
 

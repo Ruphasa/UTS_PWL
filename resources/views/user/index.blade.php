@@ -81,11 +81,13 @@
                         {  // nomor urut dari laravel datatable addIndexColumn() 
                             data: "DT_RowIndex",
                             className: "text-center",
+                            width: "7%",
                             orderable: false,
                             searchable: false
                         }, {
                             data: "username",
                             className: "",
+                            width: "15%",
                             // orderable: true, jika ingin kolom ini bisa diurutkan  
                             orderable: true,
                             // searchable: true, jika ingin kolom ini bisa dicari 
@@ -93,17 +95,20 @@
                         }, {
                             data: "nama",
                             className: "",
+                            width: "20%",
                             orderable: true,
                             searchable: true
                         }, {
                             // mengambil data level hasil dari ORM berelasi 
                             data: "level.level_nama",
                             className: "",
+                            width: "15%",
                             orderable: false,
                             searchable: false
                         }, {
                             data: "aksi",
                             className: "",
+                            width: "15%",
                             orderable: false,
                             searchable: false
                         }

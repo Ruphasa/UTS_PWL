@@ -1,9 +1,9 @@
-<form action="{{ url('/user/ajax') }}" method="POST" id="form-tambah">
+<form action="{{ url('/stok/ajax') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data User</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Stok</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
@@ -19,9 +19,9 @@
                     <small id="error-level_id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Username</label>
-                    <input value="" type="text" name="username" id="username" class="form-control" required>
-                    <small id="error-username" class="error-text form-text text-danger"></small>
+                    <label>Stokname</label>
+                    <input value="" type="text" name="stokname" id="stokname" class="form-control" required>
+                    <small id="error-stokname" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
                     <label>Nama</label>
@@ -46,7 +46,7 @@
         $("#form-tambah").validate({
             rules: {
                 level_id: { required: true, number: true },
-                username: { required: true, minlength: 3, maxlength: 20 },
+                stokname: { required: true, minlength: 3, maxlength: 20 },
                 nama: { required: true, minlength: 3, maxlength: 100 },
                 password: { required: true, minlength: 6, maxlength: 20 }
             },
@@ -63,7 +63,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataUser.ajax.reload();
+                            dataStok.ajax.reload();
                         } else {
                             $('.error-text').text('');
                             $.each(response.msgField, function (prefix, val) {

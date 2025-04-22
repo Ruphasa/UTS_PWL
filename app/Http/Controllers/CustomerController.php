@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\BarangModel;
 use App\Models\KategoriModel;
+use App\Models\StokModel;
 use App\Models\SupplierModel;
+use App\Models\UserModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,12 +25,12 @@ class CustomerController extends Controller
             'title' => 'Daftar barang yang terdaftar dalam sistem'
         ];
         $activeMenu = 'customer'; // set menu yang sedang aktif
+        $supplier = SupplierModel::all();
+        $barang = BarangModel::all();
+        $user = UserModel::all();
         $kategori = KategoriModel::all();
-        $barang = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
-            ->orderBy('kategori_id')
-            ->with('kategori')
-            ->get();
-        return view('customer.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'kategori' => $kategori, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+        $stok = StokModel::all();
+        return view('customer.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'kategori' => $kategori, 'supplier' => $supplier, 'barang' => $barang, 'user' => $user, 'stok' => $stok, 'activeMenu' => $activeMenu]);
     }
 
     public function create()
@@ -98,17 +100,18 @@ class CustomerController extends Controller
 
     public function list(Request $request)
     {
-        $suppliers = SupplierModel::select('supplier_id', 'supplier_kode', 'supplier_nama', 'supplier_alamat');
+        $stoks = StokModel::select('stok_id', 'supplier_id', 'barang_id', 'user_id', 'stok_tanggal', 'stok_jumlah')->with('supplier', 'barang', 'user')
+            ->orderBy('stok_id', 'desc');
 
-        return DataTables::of($suppliers)
+        return DataTables::of($stoks)
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addIndexColumn()
-            ->addColumn('aksi', function ($supplier) {  // menambahkan kolom aksi 
-                $btn  = '<button onclick="modalAction(\'' . url('/supplier/' . $supplier->supplier_id .
+            ->addColumn('aksi', function ($stok) {  // menambahkan kolom aksi 
+                $btn = '<button onclick="modalAction(\'' . url('/stok/' . $stok->stok_id .
                     '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/supplier/' . $supplier->supplier_id .
+                $btn .= '<button onclick="modalAction(\'' . url('/stok/' . $stok->stok_id .
                     '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\'' . url('/supplier/' . $supplier->supplier_id .
+                $btn .= '<button onclick="modalAction(\'' . url('/stok/' . $stok->stok_id .
                     '/delete_ajax') . '\')"  class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })
@@ -150,7 +153,7 @@ class CustomerController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'supplier_kode' => 'required|string|min:3|unique:m_supplier,supplier_kode,' . $id. ',supplier_id',
+            'supplier_kode' => 'required|string|min:3|unique:m_supplier,supplier_kode,' . $id . ',supplier_id',
             'supplier_nama' => 'required|string|max: 100',
             'supplier_alamat' => 'required|string|max: 100'
         ]);
@@ -185,8 +188,8 @@ class CustomerController extends Controller
 
             if ($validator->fails()) {
                 return response()->json([
-                    'status'   => false,    // respon json, true: berhasil, false: gagal 
-                    'message'  => 'Validasi gagal.',
+                    'status' => false,    // respon json, true: berhasil, false: gagal 
+                    'message' => 'Validasi gagal.',
                     'msgField' => $validator->errors()  // menunjukkan field mana yang error 
                 ]);
             }
@@ -197,12 +200,12 @@ class CustomerController extends Controller
                 }
                 $check->update($request->all());
                 return response()->json([
-                    'status'  => true,
+                    'status' => true,
                     'message' => 'Data berhasil diupdate'
                 ]);
             } else {
                 return response()->json([
-                    'status'  => false,
+                    'status' => false,
                     'message' => 'Data tidak ditemukan'
                 ]);
             }
@@ -236,28 +239,28 @@ class CustomerController extends Controller
 
     public function delete_ajax(Request $request, $id)
     {
-        if($request->ajax() || $request->wantsJson()){
+        if ($request->ajax() || $request->wantsJson()) {
             $supplier = SupplierModel::find($id);
-            if($supplier){
+            if ($supplier) {
                 try {
                     SupplierModel::destroy($id);
                     return response()->json([
-                        'status'  => true,
+                        'status' => true,
                         'message' => 'Data berhasil dihapus'
                     ]);
                 } catch (\Illuminate\Database\QueryException $e) {
                     return response()->json([
-                        'status'  => false,
+                        'status' => false,
                         'message' => 'Data supplier gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini'
                     ]);
                 }
-            }else{
+            } else {
                 return response()->json([
-                    'status'  => false,
+                    'status' => false,
                     'message' => 'Data tidak ditemukan'
                 ]);
             }
-    }
+        }
         redirect('/');
     }
 

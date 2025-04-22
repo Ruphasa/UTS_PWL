@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangModel;
 use App\Models\stokModel;
-use App\Models\KategoriModel;
+use App\Models\SupplierModel;
+use App\Models\UserModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,52 +23,38 @@ class StokController extends Controller
         $page = (object) [
             'title' => 'Daftar stok yang terdaftar dalam sistem'
         ];
-        $kategori = KategoriModel::all();
+        $supplier = SupplierModel::all();
+        $barang = BarangModel::all();
+        $user = UserModel::all();
         $activeMenu = 'stok'; // set menu yang sedang aktif
-        return view('stok.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'kategori' => $kategori, 'activeMenu' => $activeMenu]);
-    }
-
-    public function create()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Tambah stok',
-            'list' => [
-                'Home',
-                'stok',
-                'Tambah'
-            ]
-        ];
-        $page = (object) [
-            'title' => 'Tambah stok baru'
-        ];
-        $kategori = KategoriModel::all();
-        $activeMenu = 'stok'; // set menu yang sedang aktif
-        return view('stok.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'kategori' => $kategori, 'activeMenu' => $activeMenu]);
+        return view('stok.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'supplier' => $supplier, 'barang'=>$barang, 'user'=>$user, 'activeMenu' => $activeMenu]);
     }
 
     public function create_ajax()
     {
-        $kategori = KategoriModel::all();
-        return view('stok.create_ajax', ['kategori' => $kategori]);
+        $supplier = SupplierModel::all();
+        $barang = BarangModel::all();
+        $user = UserModel::all();
+        return view('stok.create_ajax', ['supplier' => $supplier, 'barang'=>$barang, 'user'=>$user]);
     }
 
     public function store_ajax(Request $request)
     {
         $request->validate([
-            'kategori_id' => 'required|integer',
-            'stok_kode' => 'required|string|min:3|unique:m_stok,stok_kode',
-            'stok_nama' => 'required|string|min:3|unique:m_stok,stok_nama',
-            'harga_beli' => 'required|integer',
-            'harga_jual' => 'required|integer'
+            'user_id' => 'required|integer',
+            'barang_id' => 'required|integer',
+            'supplier_id' => 'required|integer',
+            'stok_tanggal' => 'required|date',
+            'stok_jumlah' => 'required|integer'
         ]);
 
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'kategori_id' => 'required|integer',
-                'stok_kode' => 'required|string|min:3|unique:m_stok,stok_kode',
-                'stok_nama' => 'required|string|min:3|unique:m_stok,stok_nama',
-                'harga_beli' => 'required|integer',
-                'harga_jual' => 'required|integer'
+                'user_id' => 'required|integer',
+                'barang_id' => 'required|integer',
+                'supplier_id' => 'required|integer',
+                'stok_tanggal' => 'required|date',
+                'stok_jumlah' => 'required|integer'
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -78,11 +66,11 @@ class StokController extends Controller
                 ]);
             }
             stokModel::create([
-                'kategori_id' => $request->kategori_id,
-                'stok_kode' => $request->stok_kode,
-                'stok_nama' => $request->stok_nama,
-                'harga_beli' => $request->harga_beli,
-                'harga_jual' => $request->harga_jual
+                'user_id' => $request->user_id,
+                'barang_id' => $request->barang_id,
+                'supplier_id' => $request->supplier_id,
+                'stok_tanggal' => $request->stok_tanggal,
+                'stok_jumlah' => $request->stok_jumlah
             ]);
             return response()->json([
                 'status' => true,
@@ -92,28 +80,11 @@ class StokController extends Controller
         redirect('/');
     }
     // Menyimpan data stok baru
-    public function store(Request $request)
-    {
-        $request->validate([
-            'kategori_id' => 'required|integer',
-            'stok_kode' => 'required|string|min:3|unique:m_stok,stok_kode',
-            'stok_nama' => 'required|string|min:3|unique:m_stok,stok_nama',
-            'harga_beli' => 'required|integer',
-            'harga_jual' => 'required|integer'
-        ]);
-        stokModel::create([
-            'kategori_id' => $request->kategori_id,
-            'stok_kode' => $request->stok_kode,
-            'stok_nama' => $request->stok_nama,
-            'harga_beli' => $request->harga_beli,
-            'harga_jual' => $request->harga_jual
-        ]);
-        return redirect('/stok')->with('success', 'Data stok berhasil disimpan');
-    }
 
     public function list(Request $request)
     {
-        $stoks = stokModel::select('stok_id', 'kategori_id', 'stok_nama', 'stok_kode', 'harga_beli', 'harga_jual')->with('kategori');
+        $stoks = stokModel::select('stok_id', 'supplier_id', 'barang_id', 'user_id', 'stok_tanggal', 'stok_jumlah')->with('supplier', 'barang','user')
+            ->orderBy('stok_id', 'desc');
 
         return DataTables::of($stoks)
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
@@ -147,48 +118,13 @@ class StokController extends Controller
         return view('stok.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stok' => $stok, 'activeMenu' => $activeMenu]);
     }
 
-    // Menampilkan halaman form edit stok
-    public function edit(string $id)
-    {
-        $stok = stokModel::find($id);
-        $breadcrumb = (object) [
-            'title' => 'Edit stok',
-            'list' => ['Home', 'stok', 'Edit']
-        ];
-        $page = (object) [
-            'title' => 'Edit stok'
-        ];
-        $kategori = KategoriModel::all();
-        $activeMenu = 'stok'; // set menu yang sedang aktif
-        // Menyimpan perubahan data stok
-        return view('stok.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'stok' => $stok, 'kategori' => $kategori, 'activeMenu' => $activeMenu]);
-    }
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'kategori_id' => 'required|integer',
-            'stok_kode' => 'required|string|min:3|unique:m_stok,stok_kode,' . $id . ',stok_id',
-            'stok_nama' => 'required|string|max:100',
-            'harga_jual' => 'required|integer',
-            'harga_beli' => 'required|integer'
-        ]);
-
-        stokModel::find($id)->update([
-            // level_id harus diisi dan berupa angka
-            'kategori_id' => $request->kategori_id,
-            'stok_kode' => $request->stok_kode,
-            'stok_nama' => $request->stok_nama,
-            'harga_jual' => $request->harga_jual,
-            'harga_beli' => $request->harga_beli
-        ]);
-        return redirect('/stok')->with('success', 'Data stok berhasil diubah');
-    }
-
     public function edit_ajax(string $id)
     {
         $stok = stokModel::find($id);
-        $kategori = KategoriModel::select('kategori_id', 'kategori_nama')->get();
-        return view('stok.edit_ajax', ['stok' => $stok, 'kategori' => $kategori]);
+        $barang = BarangModel::all();
+        $supplier = SupplierModel::all();
+        $user = UserModel::all();
+        return view('stok.edit_ajax', ['stok' => $stok, 'supplier' => $supplier, 'barang'=>$barang, 'user'=>$user]);
     }
 
     public function update_ajax(Request $request, $id)
@@ -196,11 +132,11 @@ class StokController extends Controller
         // cek apakah request dari ajax 
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
-                'kategori_id' => 'required|integer',
-                'stok_kode' => 'required|string|min:3|unique:m_stok,stok_kode,' . $id . ',stok_id',
-                'stok_nama' => 'required|string|max:100',
-                'harga_jual' => 'required|integer',
-                'harga_beli' => 'required|integer'
+                'user_id' => 'required|integer',
+                'barang_id' => 'required|integer',
+                'supplier_id' => 'required|integer',
+                'stok_tanggal' => 'required|date',
+                'stok_jumlah' => 'required|integer'
             ];
 
             // use Illuminate\Support\Facades\Validator; 
@@ -231,24 +167,6 @@ class StokController extends Controller
             }
         }
         redirect('/');
-    }
-
-    // Menghapus data stok
-    public function destroy(string $id)
-    {
-        $check = stokModel::find($id);
-        if (!$check) {
-            // untuk mengecek apakah data stok dengan id yang dimaksud ada atau tidak
-            return redirect('/stok')->with('error', 'Data stok tidak ditemukan ');
-        }
-        try {
-            stokModel::destroy($id);
-            // Hapus data level
-            return redirect('/stok')->with('success', 'Data stok berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/stok')->with('error', 'Data stok gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-        }
     }
 
     public function confirm_ajax(string $id)
@@ -313,11 +231,11 @@ class StokController extends Controller
                 foreach ($data as $baris => $value) {
                     if ($baris > 1) { // baris ke 1 adalah header, maka lewati
                         $insert[] = [
-                            'kategori_id' => $value['A'],
-                            'stok_kode' => $value['B'],
-                            'stok_nama' => $value['C'],
-                            'harga_beli' => $value['D'],
-                            'harga_jual' => $value['E'],
+                            'user_id' => $value['A'], // ambil data dari kolom A
+                            'barang_id' => $value['B'], // ambil data dari kolom B
+                            'supplier_id' => $value['C'], // ambil data dari kolom C
+                            'stok_tanggal' => $value['D'], // ambil data dari kolom D
+                            'stok_jumlah' => $value['E'], // ambil data dari kolom E
                             'created_at' => now(),
                         ];
                     }
@@ -341,30 +259,31 @@ class StokController extends Controller
     }
     public function export_excel()
     {
-        $stok = stokModel::select('kategori_id', 'stok_kode', 'stok_nama', 'harga_beli', 'harga_jual')
-            ->orderBy('kategori_id')
-            ->with('kategori')
+        $stok = StokModel::select('user_id', 'barang_id', 'supplier_id', 'stok_tanggal', 'stok_jumlah')
+            ->orderBy('user_id')
+            ->orderBy('barang_id')
+            ->with('user', 'barang', 'supplier')
             ->get();
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Kode stok');
-        $sheet->setCellValue('C1', 'Nama stok');
-        $sheet->setCellValue('D1', 'Harga Beli');
-        $sheet->setCellValue('E1', 'Harga Jual');
-        $sheet->setCellValue('F1', 'Kategori');
+        $sheet->setCellValue('B1', 'ID User');
+        $sheet->setCellValue('C1', 'ID Barang');
+        $sheet->setCellValue('D1', 'ID Supplier');
+        $sheet->setCellValue('E1', 'Tanggal');
+        $sheet->setCellValue('F1', 'Jumlah');
 
         $sheet->getStyle('A1:F1')->getFont()->setBold(true);
         $no = 1;
         $baris = 2;
         foreach ($stok as $key => $value) {
             $sheet->setCellValue('A' . $baris, $no);
-            $sheet->setCellValue('B' . $baris, $value->stok_kode);
-            $sheet->setCellValue('C' . $baris, $value->stok_nama);
-            $sheet->setCellValue('D' . $baris, $value->harga_beli);
-            $sheet->setCellValue('E' . $baris, $value->harga_jual);
-            $sheet->setCellValue('F' . $baris, $value->kategori->kategori_nama);
+            $sheet->setCellValue('B' . $baris, $value->user_id);
+            $sheet->setCellValue('C' . $baris, $value->barang_id);
+            $sheet->setCellValue('D' . $baris, $value->supplier_id);
+            $sheet->setCellValue('E' . $baris, $value->stok_tanggal);
+            $sheet->setCellValue('F' . $baris, $value->stok_jumlah);
             $baris++;
             $no++;
         }
@@ -393,10 +312,10 @@ class StokController extends Controller
 
     public function export_pdf()
     {
-        $stok = stokModel::select('kategori_id', 'stok_kode', 'stok_nama', 'harga_beli', 'harga_jual')
-            ->orderBy('kategori_id')
-            ->orderBy('stok_kode')
-            ->with('kategori')
+        $stok = StokModel::select('user_id', 'barang_id', 'supplier_id', 'stok_tanggal', 'stok_jumlah')
+            ->orderBy('user_id')
+            ->orderBy('barang_id')
+            ->with('user', 'barang', 'supplier')
             ->get();
 
         // use Barryvdh\DomPDF \Facade\Pdf;
