@@ -17,8 +17,8 @@ class StokModel extends Model
         'user_id',
         'barang_id',
         'supplier_id',
-        'Stok_tanggal',
-        'Stok_jumlah',
+        'stok_tanggal',
+        'stok_jumlah',
     ];
 
     public function user(): BelongsTo
