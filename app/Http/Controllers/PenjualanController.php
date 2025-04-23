@@ -122,6 +122,10 @@ class PenjualanController extends Controller
     {
         $Penjualans = PenjualanModel::select('penjualan_id', 'user_id', 'penjualan_kode', 'penjualan_tanggal')->with('user');
 
+        if ($request->has('user_id') && $request->user_id != '') {
+            $Penjualans->where('user_id', $request->user_id);
+        }
+        
         return DataTables::of($Penjualans)
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
             ->addIndexColumn()
@@ -317,14 +321,14 @@ class PenjualanController extends Controller
 
     public function export_pdf()
     {
-        $Penjualan = PenjualanModel::select('user_id', 'Penjualan_kode', 'Penjualan_nama', 'harga_beli', 'harga_jual')
+        $penjualan = PenjualanModel::select('penjualan_id', 'user_id', 'penjualan_kode', 'penjualan_tanggal')
             ->orderBy('user_id')
-            ->orderBy('Penjualan_kode')
+            ->orderBy('penjualan_kode')
             ->with('user')
             ->get();
 
         // use Barryvdh\DomPDF \Facade\Pdf;
-        $pdf = Pdf::loadView('Penjualan.export_pdf', ['Penjualan' => $Penjualan]);
+        $pdf = Pdf::loadView('penjualan.export_pdf', ['penjualan' => $penjualan]);
         $pdf->setPaper('a4', 'portrait'); // set ukuran kertas dan orientasi
         $pdf->setOption("isRemoteEnabled", true); // set true jika ada gambar dari url
         $pdf->render();

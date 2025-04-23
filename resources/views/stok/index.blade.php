@@ -23,13 +23,13 @@
                     <div class="form-group row">
                         <label class="col-1 control-label col-form-label">Filter: </label>
                         <div class="col-3">
-                            <select class="form-control" id="user_id" name="user_id" required>
+                            <select class="form-control" id="supplier_id" name="supplier_id" required>
                                 <option value="">- Semua -</option>
-                                @foreach($user as $item)
-                                    <option value="{{ $item->user_id }}">{{ $item->username }}</option>
+                                @foreach($supplier as $item)
+                                    <option value="{{ $item->supplier_id }}">{{ $item->supplier_nama }}</option>
                                 @endforeach
                             </select>
-                            <small class="form-text text-muted">Penanggung Jawab</small>
+                            <small class="form-text text-muted">Supplier</small>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         "dataType": "json",
                         "type": "POST",
                         "data": function (d) {
-                            d.user_id = $('#user_id').val();
+                            d.supplier_id = $('#supplier_id').val();
                         }
                     },
                     columns: [
@@ -120,7 +120,7 @@
                         }
                     ]
                 });
-                $('#user_id').on('change', function () {
+                $('#supplier_id').on('change', function () {
                     dataStok.ajax.reload();
                 });
             }); 

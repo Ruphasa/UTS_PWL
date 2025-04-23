@@ -251,7 +251,7 @@
 		<div class="container">
 			<div class="section-header">
 				<p>checkout <span>the</span> latest cars</p>
-				<h2>newest cars</h2>
+				<h2>Newest Goods</h2>
 			</div><!--/.section-header-->
 			<div class="new-goods-content">
 				<div class="owl-carousel owl-theme" id="new-cars-carousel">

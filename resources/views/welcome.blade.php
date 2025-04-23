@@ -20,7 +20,7 @@
                     <div class="icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <a href="{{ url('/users') }}" class="small-box-footer">More info <i
+                    <a href="{{ url('/user') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     <div class="icon">
                         <i class="fas fa-box"></i>
                     </div>
-                    <a href="{{ url('/products') }}" class="small-box-footer">More info <i
+                    <a href="{{ url('/barang') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <div class="icon">
                         <i class="fas fa-shopping-cart"></i>
                     </div>
-                    <a href="{{ url('/sales') }}" class="small-box-footer">More info <i
+                    <a href="{{ url('/penjualan') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     <div class="icon">
                         <i class="fas fa-truck"></i>
                     </div>
-                    <a href="{{ url('/suppliers') }}" class="small-box-footer">More info <i
+                    <a href="{{ url('/supplier') }}" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>

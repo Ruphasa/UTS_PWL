@@ -95,19 +95,21 @@
         <table class="border-all">
             <thead>
                 <tr>
-                    <th class="text-center">No</th>
-                    <th>Stokname</th>
-                    <th>Nama</th>
-                    <th>Level Pengguna</th>
+                    <th class="text-center">ID</th>
+                    <th>Nama Supplier</th>
+                    <th>Nama Barang</th>
+                    <th>Yang Bertanggung Jawab</th>
+                    <th>Tanggal</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($stok as $s)
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
-                        <td>{{ $u->stokname }}</td>
-                        <td>{{ $u->nama }}</td>
-                        <td>{{ $u->level_id->level_nama }}</td>
+                        <td>{{ $s->supplier->supplier_nama }}</td>
+                        <td>{{ $s->barang->barang_nama }}</td>
+                        <td>{{ $s->user->username }}</td>
+                        <td>{{ $s->stok_tanggal }}</td>
                     </tr>
                 @endforeach
             </tbody>

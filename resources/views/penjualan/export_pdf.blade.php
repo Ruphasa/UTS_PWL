@@ -106,7 +106,7 @@
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $p->penjualan_kode }}</td>
-                        <td>{{ $p->user_id->username }}</td>
+                        <td>{{ $p->user->username }}</td>
                         <td>{{ $p->penjualan_tanggal }}</td>
                     </tr>
                 @endforeach
